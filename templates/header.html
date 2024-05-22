@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en" data-bs-theme="{{ color_mode }}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/custom.css') }}">
+    <title>Workout Generator</title>
+</head>
+<body>
+    <div class="container">
+        <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
+          <a href="{{ url_for('home') }}" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none mx-auto">
+            <span class="fs-1">
+                {% if color_mode == "dark" %}
+                <img src="{{ url_for('static', filename='./images/dark_biceps.png') }}" class="header-image"/>
+                Workout Generator
+                <img src="{{ url_for('static', filename='./images/dark_biceps.png') }}" class="header-image"/>
+                {% else %}
+                <img src="{{ url_for('static', filename='./images/light_biceps.png') }}" class="header-image"/>
+                Workout Generator
+                <img src="{{ url_for('static', filename='./images/light_biceps.png') }}" class="header-image"/>
+                {% endif %}
+            </span>
+          </a>
+        </header>
+
+
+        <nav class="py-1 bg-body-tertiary border-bottom">
+            <div class="container d-flex flex-wrap">
+              <ul class="nav col justify-content-evenly">
+                <li
+                {% if redirect_url=="show_workouts" %}
+                    class="nav-item fs-4 p-1 nav-active"
+                {% else %}
+                    class="nav-item fs-4 p-1"
+                {% endif %}
+                ><a href="{{ url_for('show_workouts') }}" class="nav-link link-body-emphasis px-2">Show Workouts</a></li>
+
+                  <li
+                      {% if redirect_url=="create_custom_workout" or redirect_url=="create_generated_workout" or redirect_url=="workout_exercises" %}
+                            class="nav-item dropdown fs-4 p-1 nav-active">
+                      {% else %}
+                            class="nav-item dropdown fs-4 p-1">
+                      {% endif %}
+                    <a
+                        {% if color_mode=="dark" %}
+                        class="nav-link dropdown-toggle text-decoration-none link-light"
+                        {% else %}
+                        class="nav-link dropdown-toggle text-decoration-none link-dark"
+                        {%  endif %}
+                        href="#" data-bs-toggle="dropdown" aria-expanded="false">Create Workout</a>
+                    <ul class="dropdown-menu">
+                      <li><a class="dropdown-item" href="{{ url_for('create_generated_workout') }}">Generated Workout</a></li>
+                      <li><a class="dropdown-item" href="{{ url_for('create_custom_workout') }}">Custom Workout</a></li>
+                    </ul>
+                  </li>
+
+                <li
+                {% if redirect_url=="show_exercises" %}
+                    class="nav-item fs-4 p-1 nav-active"
+                {% else %}
+                    class="nav-item fs-4 p-1"
+                {% endif %}
+                ><a href="{{ url_for('show_exercises') }}" class="nav-link link-body-emphasis px-2">Show Exercises</a></li>
+
+                <li
+                {% if redirect_url=="add_exercise" %}
+                    class="nav-item fs-4 p-1 nav-active"
+                {% else %}
+                    class="nav-item fs-4 p-1"
+                {% endif %}
+                ><a href="{{ url_for('add_exercise') }}" class="nav-link link-body-emphasis px-2">Add Exercise</a></li>
+                {% if color_mode == "dark" %}
+                <li class="nav-item"><a href="{{ url_for('switch_color', redirect_url=redirect_url) }}" class="nav-link link-body-emphasis px-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-toggle-off" viewBox="0 0 16 16">
+                      <path d="M11 4a4 4 0 0 1 0 8H8a5 5 0 0 0 2-4 5 5 0 0 0-2-4zm-6 8a4 4 0 1 1 0-8 4 4 0 0 1 0 8M0 8a5 5 0 0 0 5 5h6a5 5 0 0 0 0-10H5a5 5 0 0 0-5 5"/>
+                    </svg>
+                </a></li>
+                {% else %}
+                <li class="nav-item"><a href="{{ url_for('switch_color', redirect_url=redirect_url) }}" class="nav-link link-body-emphasis px-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-toggle-on" viewBox="0 0 16 16">
+                      <path d="M5 3a5 5 0 0 0 0 10h6a5 5 0 0 0 0-10zm6 9a4 4 0 1 1 0-8 4 4 0 0 1 0 8"/>
+                    </svg>
+                </a></li>
+                {% endif %}
+              </ul>
+            </div>
+        </nav>
+      </div>

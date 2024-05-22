@@ -1,0 +1,20 @@
+{% from "bootstrap5/form.html" import render_form %}
+{% block content %}
+{% include "header.html" %}
+
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+    <div class="container text-center">
+    {% for message in messages %}
+        <span class="badge rounded-pill text-bg-danger fs-5 mt-4">{{ message }}</span>
+    {% endfor %}
+    </div>
+  {% endif %}
+{% endwith %}
+
+<div class="container justify-content-center my-3" id="add_form">
+    {{ render_form(form, novalidate=True, button_map={"submit": "primary"}) }}
+</div>
+
+{% include "footer.html" %}
+{% endblock %}
