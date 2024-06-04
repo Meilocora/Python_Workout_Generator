@@ -30,6 +30,8 @@ def filter_feasible_exercises(min_difficulty, max_difficulty, equipment_required
         feasible_exercises = [exercise for exercise in feasible_exercises if exercise.favourite]
     if partner_workout:
         feasible_exercises = [exercise for exercise in feasible_exercises if exercise.partner_required]
+    else:
+        feasible_exercises = [exercise for exercise in feasible_exercises if not exercise.partner_required]
 
     return feasible_exercises
 
